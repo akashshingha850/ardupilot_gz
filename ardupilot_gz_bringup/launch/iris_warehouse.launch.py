@@ -33,11 +33,15 @@
 from pathlib import Path
 
 from ament_index_python.packages import get_package_share_directory
+
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
+from launch.actions import DeclareLaunchArgument
+from launch.actions import IncludeLaunchDescription
 from launch.conditions import IfCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
+from launch.substitutions import LaunchConfiguration
+from launch.substitutions import PathJoinSubstitution
+
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 
@@ -62,6 +66,10 @@ def generate_launch_description():
                 ),
             ]
         ),
+        launch_arguments={
+            "world_name": LaunchConfiguration("world_name"),
+            "robot_name": LaunchConfiguration("robot_name"),
+        }.items(),
         condition=IfCondition(LaunchConfiguration("spawn_robot")),
     )
 
@@ -72,7 +80,7 @@ def generate_launch_description():
         ),
         launch_arguments={
             "gz_args": "-v4 -s -r "
-            + f'{Path(pkg_project_gazebo) / "worlds" / "maze.sdf"}'
+            + f'{Path(pkg_project_gazebo) / "worlds" / "warehouse.sdf"}'
         }.items(),
         condition=IfCondition(LaunchConfiguration("use_gz_sim_server")),
     )
@@ -98,6 +106,16 @@ def generate_launch_description():
 
     return LaunchDescription(
         [
+            DeclareLaunchArgument(
+                "world_name",
+                default_value="warehouse",
+                description="Name for the world instance.",
+            ),
+            DeclareLaunchArgument(
+                "robot_name",
+                default_value="iris",
+                description="Name for the model instance.",
+            ),
             DeclareLaunchArgument(
                 "use_gz_sim_server",
                 default_value="true",

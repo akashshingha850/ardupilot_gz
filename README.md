@@ -20,7 +20,7 @@ The project is adapted from the [`ros_gz_project_template`](https://github.com/g
 ## Prerequisites
 
 - Install [ROS 2 Humble](https://docs.ros.org/en/humble/index.html)
-- Install [Gazebo Harmonic (recommended)](https://gazebosim.org/docs/harmonic) or [Gazebo Ionic](https://gazebosim.org/docs/ionic)
+- Install [Gazebo Harmonic (default)](https://gazebosim.org/docs/harmonic) or [Gazebo Jetty](https://gazebosim.org/docs/jetty)
 - Follow the [`Installing Build Dependencies`](https://github.com/ArduPilot/ardupilot/tree/master/libraries/AP_DDS#installing-build-dependencies) section of `AP_DDS`'s README
 
 ## Install
@@ -38,7 +38,7 @@ cd ~/ros2_ws
 vcs import --input https://raw.githubusercontent.com/ArduPilot/ardupilot_gz/main/ros2_gz.repos --recursive src
 ```
 
-#### 3. Set the Gazebo version to Harmonic or Ionic
+#### 3. Set the Gazebo version to Harmonic or Jetty
 
 It is recommended to put this in your `~/.bashrc` or equivalent file.
 
@@ -131,6 +131,15 @@ This simulation includes a skid-steer rover equipped with a 2d lidar in a plaype
 
 ```bash
 ros2 launch ardupilot_gz_bringup wildthumper_playpen.launch.py rviz:=true use_gz_tf:=true
+```
+
+### 3. Iris Warehouse with Mecanum drive
+
+This simulation includes a iris in a warehouse setting.
+
+
+```bash
+ros2 launch ardupilot_gz_bringup iris_warehouse.launch.py rviz:=true use_gz_tf:=true
 ```
 
 
